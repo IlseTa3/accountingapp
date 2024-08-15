@@ -1,0 +1,6 @@
+package be.finance.bankbeheer.model;
+
+public enum SoortBetaling {
+    CASH,BANCONTACT,PAYCONIQ,DOMICILIE,DOORBETALING,CREDITCARD,PAYPAL,OVERSCHRIJVING,
+    MAALTIJDCHEQUE, ECOCHEQUE
+}
