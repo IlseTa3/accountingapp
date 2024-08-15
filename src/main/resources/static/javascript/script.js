@@ -1,7 +1,7 @@
 console.log("Hello there!")
 
 document.addEventListener("DOMContentLoaded",function(){
-    fetch('http://localhost:8080/betalingen/voedsel')
+    fetch('http://localhost:8080/betalingen/voedsel/')
         .then(resp => resp.json())
         .then(data => {console.log("Data ontvangen: ", data);
         })
