@@ -14,7 +14,7 @@ public class Nutsvoorziening {
     private Long id;
     private LocalDate datum;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Periode periode;
 
     @Column(name = "naam_bedrijf")
