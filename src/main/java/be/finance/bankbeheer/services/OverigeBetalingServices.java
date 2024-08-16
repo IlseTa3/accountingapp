@@ -34,7 +34,7 @@ public class OverigeBetalingServices {
                 .orElseThrow(() -> new NoSuchElementException("Betaling werd niet gevonden!"));
         updateBestaandeBetaling.setDatum(updateDetails.getDatum());
         updateBestaandeBetaling.setPeriode(updateDetails.getPeriode());
-        updateBestaandeBetaling.setLeveranciers(updateDetails.getLeveranciers());
+        updateBestaandeBetaling.setLeveranciers(updateDetails.getLeverancier());
         updateBestaandeBetaling.setKlantnr(updateDetails.getKlantnr());
         updateBestaandeBetaling.setBedrag(updateDetails.getBedrag());
         updateBestaandeBetaling.setSoortBetaling(updateDetails.getSoortBetaling());

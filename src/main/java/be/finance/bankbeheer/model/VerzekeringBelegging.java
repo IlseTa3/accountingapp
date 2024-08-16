@@ -30,6 +30,12 @@ public class VerzekeringBelegging {
     @Enumerated(EnumType.STRING)
     private Betaalperiode betaalperiode;
 
+    @Enumerated(EnumType.STRING)
+    private Periode periode;
+
+    @Enumerated(EnumType.STRING)
+    private SoortBetaling soortBetaling;
+
     @ManyToOne
     @JoinColumn(name = "bank_id")
     private Bank bank;
@@ -80,6 +86,22 @@ public class VerzekeringBelegging {
 
     public void setBetaalperiode(Betaalperiode betaalperiode) {
         this.betaalperiode = betaalperiode;
+    }
+
+    public Periode getPeriode() {
+        return periode;
+    }
+
+    public void setPeriode(Periode periode) {
+        this.periode = periode;
+    }
+
+    public SoortBetaling getSoortBetaling() {
+        return soortBetaling;
+    }
+
+    public void setSoortBetaling(SoortBetaling soortBetaling) {
+        this.soortBetaling = soortBetaling;
     }
 
     public Bank getBank() {

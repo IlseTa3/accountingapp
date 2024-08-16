@@ -18,7 +18,7 @@ public class VoedselgroepenController {
     private VoedselgroepenServices voedselgroepenServices;
 
     //GET all
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<Voedselgroepen> getAllBetalingenVoedsel(){
         return voedselgroepenServices.getAllBetalingenVoedsel();
     }
@@ -39,7 +39,7 @@ public class VoedselgroepenController {
     }
 
     //POST
-    @PostMapping("/")
+    @PostMapping("/new")
     public ResponseEntity<String> createBetalingVoedsel(@RequestBody Voedselgroepen voedsel){
         try{
             voedselgroepenServices.createBetalingVoedsel(voedsel);

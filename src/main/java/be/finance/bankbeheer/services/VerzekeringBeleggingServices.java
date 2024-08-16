@@ -9,44 +9,61 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class VerzekeringBeleggingServices {
+public class VerzekeringBeleggingServices implements VerzekeringBeleggingServicesImpl {
     @Autowired
     private VerzekeringBeleggingRepository verzekeringBeleggingRepository;
+
     //CREATE
-    public VerzekeringBelegging createBetalingVerzBel(VerzekeringBelegging verzBel){
+    @Override
+    public VerzekeringBelegging createVerzekeringBelegging(VerzekeringBelegging verzekeringBelegging) {
         try{
-            return verzekeringBeleggingRepository.save(verzBel);
+            return verzekeringBeleggingRepository.save(verzekeringBelegging);
         }catch (Exception e){
-            throw new RuntimeException("Fout bij opslaan van betaling in de database");
+            throw new RuntimeException("Fout bij opslaan in database.");
         }
     }
 
-    //READ all
-    public List<VerzekeringBelegging> getAllBetalingenVerzekBel(){
+    //READ All
+    @Override
+    public List<VerzekeringBelegging> getAllVerzekeringBeleggingen() {
         return verzekeringBeleggingRepository.findAll();
     }
 
-    //READ by ID
-    public VerzekeringBelegging getBetalingVerzekBelById(Long id){
+    @Override
+    public VerzekeringBelegging getVerzekeringBeleggingById(Long id) {
         return verzekeringBeleggingRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Betaling werd niet gevonden!"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Verzekering/belegging werd niet gevonden"));
     }
 
-    //UPDATE by ID
-    public ResponseEntity<VerzekeringBelegging> updateBetalingVerzekBel(Long id, VerzekeringBelegging updateDetails){
-        VerzekeringBelegging updateBestaandeBetaling = verzekeringBeleggingRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Betaling werd niet gevonden"));
-        updateBestaandeBetaling.setDatum(updateDetails.getDatum());
-        updateBestaandeBetaling.setNaamVerzekering(updateDetails.getNaamVerzekering());
-        updateBestaandeBetaling.setBedrag(updateDetails.getBedrag());
-        updateBestaandeBetaling.setBetaalperiode(updateDetails.getBetaalperiode());
-        return ResponseEntity.ok(updateBestaandeBetaling);
+    @Override
+    public void updateVerzekeringBeleggingById(Long id, VerzekeringBelegging updateDetails) {
+        Optional<VerzekeringBelegging> optionalVerzekBel = verzekeringBeleggingRepository.findById(id);
+        if(optionalVerzekBel.isPresent()){
+            VerzekeringBelegging updateVerzekBel = optionalVerzekBel.get();
+            updateVerzekBel.setDatum(updateDetails.getDatum());
+            updateVerzekBel.setNaamVerzekering(updateDetails.getNaamVerzekering());
+            updateVerzekBel.setVerzekeringsnr(updateDetails.getVerzekeringsnr());
+            updateVerzekBel.setBedrag(updateDetails.getBedrag());
+            updateVerzekBel.setBetaalperiode(updateDetails.getBetaalperiode());
+            updateVerzekBel.setPeriode(updateDetails.getPeriode());
+            updateVerzekBel.setSoortBetaling(updateDetails.getSoortBetaling());
+            try{
+                verzekeringBeleggingRepository.save(updateVerzekBel);
+            }catch(Exception e){
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                        "Problemen met database connectie. Probeer later opnieuw!");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Betaling werd niet gevonden!");
+        }
     }
 
-    //DELETE by ID
-    public void deleteBetalingVerzekBelegById(Long id){
+    @Override
+    public void deleteVerzekeringBeleggingById(Long id) {
         verzekeringBeleggingRepository.deleteById(id);
     }
 }

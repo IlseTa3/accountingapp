@@ -19,7 +19,7 @@ public class OverigeBetaling {
     @Enumerated(EnumType.ORDINAL)
     private Periode periode;
 
-    private String leveranciers;
+    private String leverancier;
     private String klantnr;
     private float bedrag;
 
@@ -57,12 +57,12 @@ public class OverigeBetaling {
         this.periode = periode;
     }
 
-    public String getLeveranciers() {
-        return leveranciers;
+    public String getLeverancier() {
+        return leverancier;
     }
 
-    public void setLeveranciers(String leveranciers) {
-        this.leveranciers = leveranciers;
+    public void setLeveranciers(String leverancier) {
+        this.leverancier = leverancier;
     }
 
     public String getKlantnr() {

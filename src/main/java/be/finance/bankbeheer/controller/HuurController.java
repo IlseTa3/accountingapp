@@ -17,7 +17,7 @@ public class HuurController {
     private HuurServices huurServices;
 
     //GET all
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<Huur> getAllBetalingenHuur(){return huurServices.getAllBetalingenHuur();}
 
     //GET by ID
@@ -32,7 +32,7 @@ public class HuurController {
     }
 
     //POST
-    @PostMapping("/")
+    @PostMapping("/new")
     public ResponseEntity<String> createBetalingHuur(@RequestBody Huur huur){
         try{
             huurServices.createBetalingHuur(huur);
